@@ -68,7 +68,9 @@ namespace Services
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Role = userManager.GetRolesAsync(user).Result.DefaultIfEmpty("").First()
+                    Role = userManager.GetRolesAsync(user).Result.DefaultIfEmpty("").First(),
+                    SecurityStamp = null,
+                    ConcurrencyStamp = null
                 };
             }
             catch (Exception ex)
