@@ -37,6 +37,7 @@ namespace SEMS_API_V2.Extensions
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void ConfigureCORS(this IServiceCollection services)
