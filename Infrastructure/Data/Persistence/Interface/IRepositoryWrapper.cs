@@ -9,6 +9,7 @@ namespace Infrastructure.Data.Persistence.Interface
     public interface IRepositoryWrapper
     {
         IApplicationUserRepository ApplicationUser { get; }
+        ISportRepository Sport { get; }
         void Save();
     }
 }

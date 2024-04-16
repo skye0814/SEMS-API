@@ -12,6 +12,7 @@ namespace Infrastructure.Data
     {
         private readonly RepositoryContext repositoryContext;
         private IApplicationUserRepository applicationUserRepository;
+        private ISportRepository sportRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
@@ -28,6 +29,19 @@ namespace Infrastructure.Data
                 }
 
                 return this.applicationUserRepository;
+            }
+        }
+
+        public ISportRepository Sport
+        {
+            get
+            {
+                if (this.sportRepository == null)
+                {
+                    sportRepository = new SportRepository(repositoryContext);
+                }
+
+                return this.sportRepository;
             }
         }
 
