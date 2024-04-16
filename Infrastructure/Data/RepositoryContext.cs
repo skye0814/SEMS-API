@@ -70,6 +70,15 @@ namespace Infrastructure.Data
                 MiddleName = "Administrator",
                 LastName = "Administrator"
             });
+
+            modelBuilder.Entity<Sport>().HasData(
+                new Sport { Id = 1, Name = "Basketball" },
+                new Sport { Id = 2, Name = "Tennis" },
+                new Sport { Id = 3, Name = "Volleyball" },
+                new Sport { Id = 4, Name = "Chess" },
+                new Sport { Id = 5, Name = "Swimming" },
+                new Sport { Id = 6, Name = "Badminton" }
+            );
         }
     }
 }
