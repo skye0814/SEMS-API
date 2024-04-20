@@ -1,9 +1,13 @@
 ﻿using Core.Entities;
+using Core.WebModel.Request;
+using Core.WebModel.Response;
 using Infrastructure.Data;
 using Infrastructure.Data.Persistence.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Data;
 
 namespace SEMS_API_V2.Controllers
 {
@@ -18,7 +22,7 @@ namespace SEMS_API_V2.Controllers
             this.repositoryWrapper = repositoryWrapper;
         }
 
-        [HttpGet("{id}", Name = "GetSportById")]
+        [HttpGet("{id}", Name = "GetSport")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
@@ -41,6 +45,7 @@ namespace SEMS_API_V2.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public async Task<IActionResult> AddSport(Sport sport)
         {
@@ -48,7 +53,7 @@ namespace SEMS_API_V2.Controllers
             {
                 await repositoryWrapper.Sport.AddSport(sport);
 
-                return CreatedAtAction("GetSportById", new { id = sport.Id }, sport);
+                return CreatedAtAction("GetSport", new { id = sport.Id }, sport);
             }
             catch (Exception ex)
             {
@@ -56,11 +61,49 @@ namespace SEMS_API_V2.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpPut]
+        [ProducesResponseType(typeof(Sport), 201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult UpdateSport([FromBody] Sport sport)
+        {
+            try
+            {
+                if (sport == null)
+                {
+                    return BadRequest("Sport is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var dbSport = repositoryWrapper.Sport.GetSportById(sport.Id);
+
+                if (dbSport == null)
+                {
+                    return NotFound("Sport does not exist.");
+                }
+
+                repositoryWrapper.Sport.UpdateSport(dbSport, sport);
+
+                return CreatedAtAction("GetSport", new { id = sport.Id }, sport);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteSport(int id)
         {
             try
             {
@@ -80,5 +123,48 @@ namespace SEMS_API_V2.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public IActionResult Sports(PagedRequest pagedRequest)
+        {
+
+            try
+            {
+                var sports = repositoryWrapper.Sport.GetPagedSports(pagedRequest);
+
+                var result = new PagedResponse<Sport>(
+                    pagedRequest.PageNumber,
+                    pagedRequest.PageSize,
+                    sports,
+                    repositoryWrapper.Sport.GetPagedSportsCount(pagedRequest));
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public IActionResult GetAllSports()
+        {
+
+            try
+            {
+                var sports = repositoryWrapper.Sport.GetAllSports();
+
+                return Ok(sports);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
+
 }

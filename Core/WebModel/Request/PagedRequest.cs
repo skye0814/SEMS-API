@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.WebModel.Request
 {
-    public class PagedRequest
+    public class PagedRequest : IEntity
     {
         private int _pageSize;
         private int _pageNumber;
@@ -23,9 +24,9 @@ namespace Core.WebModel.Request
             get => _pageSize;
             set => _pageSize = (value < 1) ? 1 : value;
         }
-        public string? Search { get; set; }
+        public string? Search { get; set; } = string.Empty;
 
-        public string SortBy
+        public string? SortBy
         {
             get => _sortBy;
             set => _sortBy = value?.ToLower();

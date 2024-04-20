@@ -31,6 +31,13 @@ namespace Infrastructure.Data.Persistence.Repository
             await SaveAsync();
         }
 
+        public async Task UpdateSport(Sport dbRecord, Sport record)
+        {
+            dbRecord.Map(record);
+            Update(dbRecord);
+            await SaveAsync();
+        }
+
         public IEnumerable<Sport> GetAllSports()
         {
             return FindAll();
@@ -52,7 +59,7 @@ namespace Infrastructure.Data.Persistence.Repository
 
         private Expression<Func<Sport, bool>> SportSearchExpression(PagedRequest request)
         {
-            return x => x.Name!.ToLower().Contains(request.Search!.ToLower());
+            return x => x.Name.ToLower().Contains(request.Search.ToLower());
         }
 
         public IQueryable<Sport> GetPagedSports(PagedRequest request)
