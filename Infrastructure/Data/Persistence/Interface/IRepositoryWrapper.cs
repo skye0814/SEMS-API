@@ -10,6 +10,7 @@ namespace Infrastructure.Data.Persistence.Interface
     {
         IApplicationUserRepository ApplicationUser { get; }
         ISportRepository Sport { get; }
+        IEventRepository Event { get; }
         void Save();
     }
 }
