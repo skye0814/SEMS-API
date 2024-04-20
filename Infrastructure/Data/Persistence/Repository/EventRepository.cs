@@ -4,6 +4,7 @@ using Core.WebModel.Request;
 using Infrastructure.Data.Persistence.Interface;
 using Infrastructure.Dictionary;
 using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Infrastructure.Data.Persistence.Repository
 
         public IEnumerable<Event> GetAllEvents()
         {
-            return FindAll();
+            return Query().Include(x => x.Sport).ToList();
         }
 
         public Event GetEventById(int id)
@@ -60,6 +61,7 @@ namespace Infrastructure.Data.Persistence.Repository
             var dictionary = new EventExpressionsDictionary();
 
             return Query()
+                        .Include(x => x.Sport)
                         .Where(EventSearchExpression(request))
                         .Sort(request.isAscending, dictionary.GetValue(request.SortBy))
                         .Skip((request.PageNumber - 1) * request.PageSize)
