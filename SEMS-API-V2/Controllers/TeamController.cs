@@ -13,31 +13,31 @@ namespace SEMS_API_V2.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]/[action]")]
-    public class EventController : ControllerBase
+    public class TeamController : ControllerBase
     {
         private readonly IRepositoryWrapper repositoryWrapper;
 
-        public EventController(RepositoryWrapper repositoryWrapper)
+        public TeamController(IRepositoryWrapper repositoryWrapper)
         {
             this.repositoryWrapper = repositoryWrapper;
         }
 
-        [HttpGet("{id}", Name = "GetEvent")]
+        [HttpGet("{id}", Name = "GetTeam")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult GetEvent(int id)
+        public IActionResult GetTeam(int id)
         {
             try
             {
-                var Event = repositoryWrapper.Event.GetEventById(id);
+                var Team = repositoryWrapper.Team.GetTeamById(id);
 
-                if (Event == null)
+                if (Team == null)
                 {
-                    return NotFound($"The Event with ID {id} does not exist.");
+                    return NotFound($"The Team with ID {id} does not exist.");
                 }
 
-                return Ok(Event);
+                return Ok(Team);
             }
             catch (Exception ex)
             {
@@ -47,20 +47,20 @@ namespace SEMS_API_V2.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPost]
-        public async Task<IActionResult> AddEvent(Event Event)
+        public async Task<IActionResult> AddTeam(Team Team)
         {
             try
             {
-                var existingEventName = repositoryWrapper.Event.GetEventByName(Event.Name);
+                var existingTeamName = repositoryWrapper.Team.GetTeamByName(Team.TeamName);
 
-                if (existingEventName != null)
+                if (existingTeamName != null)
                 {
-                    return BadRequest("Event name already exists");
+                    return BadRequest("Team name already exists");
                 }
 
-                await repositoryWrapper.Event.AddEvent(Event);
+                await repositoryWrapper.Team.AddTeam(Team);
 
-                return CreatedAtAction("GetEvent", new { id = Event.Id }, Event);
+                return CreatedAtAction("GetTeam", new { id = Team.Id }, Team);
             }
             catch (Exception ex)
             {
@@ -70,17 +70,17 @@ namespace SEMS_API_V2.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpPut]
-        [ProducesResponseType(typeof(Event), 201)]
+        [ProducesResponseType(typeof(Team), 201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult UpdateEvent([FromBody] Event Event)
+        public IActionResult UpdateTeam([FromBody] Team Team)
         {
             try
             {
-                if (Event == null)
+                if (Team == null)
                 {
-                    return BadRequest("Event is null");
+                    return BadRequest("Team is null");
                 }
 
                 if (!ModelState.IsValid)
@@ -88,16 +88,16 @@ namespace SEMS_API_V2.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                var dbEvent = repositoryWrapper.Event.GetEventById(Event.Id);
+                var dbTeam = repositoryWrapper.Team.GetTeamById(Team.Id);
 
-                if (dbEvent == null)
+                if (dbTeam == null)
                 {
-                    return NotFound("Event does not exist.");
+                    return NotFound("Team does not exist.");
                 }
 
-                repositoryWrapper.Event.UpdateEvent(dbEvent, Event);
+                repositoryWrapper.Team.UpdateTeam(dbTeam, Team);
 
-                return CreatedAtAction("GetEvent", new { id = Event.Id }, Event);
+                return CreatedAtAction("GetTeam", new { id = Team.Id }, Team);
             }
             catch (Exception ex)
             {
@@ -110,18 +110,18 @@ namespace SEMS_API_V2.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteEvent(int id)
+        public async Task<IActionResult> DeleteTeam(int id)
         {
             try
             {
-                var Event = repositoryWrapper.Event.GetEventById(id);
+                var Team = repositoryWrapper.Team.GetTeamById(id);
 
-                if (Event == null)  
+                if (Team == null)  
                 {
-                    return NotFound("The Event you are trying to delete does not exist");
+                    return NotFound("The Team you are trying to delete does not exist");
                 }
 
-                await repositoryWrapper.Event.DeleteEvent(Event);
+                await repositoryWrapper.Team.DeleteTeam(Team);
 
                 return NoContent();
             }
@@ -134,18 +134,18 @@ namespace SEMS_API_V2.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult Events(PagedRequest pagedRequest)
+        public IActionResult Teams(PagedRequest pagedRequest)
         {
 
             try
             {
-                var Events = repositoryWrapper.Event.GetPagedEvents(pagedRequest);
+                var Teams = repositoryWrapper.Team.GetPagedTeams(pagedRequest);
 
-                var result = new PagedResponse<Event>(
+                var result = new PagedResponse<Team>(
                     pagedRequest.PageNumber,
                     pagedRequest.PageSize,
-                    Events,
-                    repositoryWrapper.Event.GetPagedEventsCount(pagedRequest));
+                    Teams,
+                    repositoryWrapper.Team.GetPagedTeamsCount(pagedRequest));
 
                 return Ok(result);
             }
@@ -158,14 +158,14 @@ namespace SEMS_API_V2.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetAllEvents()
+        public IActionResult GetAllTeams()
         {
 
             try
             {
-                var Events = repositoryWrapper.Event.GetAllEvents();
+                var Teams = repositoryWrapper.Team.GetAllTeams();
 
-                return Ok(Events);
+                return Ok(Teams);
             }
             catch (Exception ex)
             {

@@ -22,6 +22,7 @@ namespace Infrastructure.Data
         DbSet<Team> Teams { get; set; }
         DbSet<Match> Matches { get; set; }
         DbSet<MatchResult> MatchResults { get; set; }
+        DbSet<Participant> Participants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

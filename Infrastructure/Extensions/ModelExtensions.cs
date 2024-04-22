@@ -19,5 +19,12 @@ namespace Infrastructure.Extensions
             dbRecord.Location = record.Location;
             dbRecord.SportId = record.SportId;
         }
+
+        public static void MapTeam(this Team dbRecord, Team record)
+        {
+            dbRecord.Id = record.Id;
+            dbRecord.TeamName = record.TeamName;
+            dbRecord.EventId = record.EventId;
+        }
     }
 }

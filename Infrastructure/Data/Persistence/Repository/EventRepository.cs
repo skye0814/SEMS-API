@@ -74,5 +74,12 @@ namespace Infrastructure.Data.Persistence.Repository
                 .Where(EventSearchExpression(request))
                 .Count();
         }
+
+        public Event? GetEventByName(string name)
+        {
+            return Query()
+                .Where(x => x.Name == name)
+                .FirstOrDefault();
+        }
     }
 }

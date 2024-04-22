@@ -11,6 +11,7 @@ namespace Infrastructure.Data.Persistence.Interface
         IApplicationUserRepository ApplicationUser { get; }
         ISportRepository Sport { get; }
         IEventRepository Event { get; }
+        ITeamRepository Team { get; }
         void Save();
     }
 }

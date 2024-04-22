@@ -13,6 +13,7 @@ namespace Infrastructure.Data.Persistence.Interface
         Task AddEvent(Event Event);
         Task UpdateEvent(Event dbRecord, Event record);
         Event GetEventById(int id);
+        Event? GetEventByName(string name);
         IEnumerable<Event> GetAllEvents();
         Task DeleteEvent(Event Event);
         IQueryable<Event> GetPagedEvents(PagedRequest request);

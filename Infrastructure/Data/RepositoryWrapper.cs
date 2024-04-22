@@ -14,6 +14,7 @@ namespace Infrastructure.Data
         private IApplicationUserRepository applicationUserRepository;
         private ISportRepository sportRepository;
         private IEventRepository eventRepository;
+        private ITeamRepository teamRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
@@ -56,6 +57,19 @@ namespace Infrastructure.Data
                 }
 
                 return this.eventRepository;
+            }
+        }
+
+        public ITeamRepository Team
+        {
+            get
+            {
+                if (this.teamRepository == null)
+                {
+                    teamRepository = new TeamRepository(repositoryContext);
+                }
+
+                return this.teamRepository;
             }
         }
 
