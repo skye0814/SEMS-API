@@ -41,7 +41,7 @@ namespace Infrastructure.Data.Persistence.Repository
 
         public IEnumerable<Event> GetAllEvents()
         {
-            return Query().Include(x => x.Sport).ToList();
+            return Query().Include(x => x.Sport).ToList().OrderBy(x => x.Name);
         }
 
         public Event GetEventById(int id)

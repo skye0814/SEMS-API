@@ -15,6 +15,7 @@ namespace Infrastructure.Data
         private ISportRepository sportRepository;
         private IEventRepository eventRepository;
         private ITeamRepository teamRepository;
+        private ITeamLogoRepository logoRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
@@ -70,6 +71,19 @@ namespace Infrastructure.Data
                 }
 
                 return this.teamRepository;
+            }
+        }
+
+        public ITeamLogoRepository TeamLogo
+        {
+            get
+            {
+                if (this.logoRepository == null)
+                {
+                    logoRepository = new TeamLogoRepository(repositoryContext);
+                }
+
+                return this.logoRepository;
             }
         }
 

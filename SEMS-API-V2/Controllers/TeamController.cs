@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Data;
+using System.Diagnostics;
 
 namespace SEMS_API_V2.Controllers
 {

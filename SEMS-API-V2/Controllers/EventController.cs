@@ -128,7 +128,7 @@ namespace SEMS_API_V2.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            }   
         }
 
         [HttpPost]

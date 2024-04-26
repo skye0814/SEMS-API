@@ -25,6 +25,7 @@ namespace Infrastructure.Extensions
             dbRecord.Id = record.Id;
             dbRecord.TeamName = record.TeamName;
             dbRecord.EventId = record.EventId;
+            dbRecord.TeamLogoId = record.TeamLogoId;
         }
     }
 }

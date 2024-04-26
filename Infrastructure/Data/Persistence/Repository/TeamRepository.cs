@@ -59,7 +59,9 @@ namespace Infrastructure.Data.Persistence.Repository
         public IQueryable<Team> GetPagedTeams(PagedRequest request)
         {
             return Query()
+                        .Include(x => x.TeamLogo)
                         .Include(x => x.Event)
+                        .ThenInclude(x => x.Sport)
                         .Where(TeamSearchExpression(request))
                         .Sort(request.isAscending, x => x.TeamName)
                         .Skip((request.PageNumber - 1) * request.PageSize)

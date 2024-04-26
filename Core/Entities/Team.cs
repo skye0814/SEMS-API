@@ -11,9 +11,10 @@ namespace Core.Entities
         public int Id { get; set; }
         public string TeamName { get; set; } = string.Empty;
 
-
         // Navigation property
         public int? EventId { get; set; }
         public Event? Event { get; set; }
+        public int? TeamLogoId { get; set; }
+        public TeamLogo? TeamLogo { get; set; }
     }
 }
