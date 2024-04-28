@@ -13,6 +13,7 @@ namespace Infrastructure.Data.Persistence.Interface
         Task AddTeam(Team Team);
         Task UpdateTeam(Team dbRecord, Team record);
         Team? GetTeamById(int id);
+        IEnumerable<Team> GetTeamsByEventId(int id);
         Team? GetTeamByName(string name);
         IEnumerable<Team> GetAllTeams();
         Task DeleteTeam(Team Team);

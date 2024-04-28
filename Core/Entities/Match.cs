@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,9 @@ namespace Core.Entities
         public int? TeamId2 { get; set;}
         public Team? Team1 { get; set; }
         public Team? Team2 { get; set;}
+        public int? Round { get; set; }
+        public int? WinnerId { get; set; }
+        public Team? Winner { get; set; }
 
         public DateTime? MatchStartDate { get; set; }
         public string MatchStatus { get; set; } = string.Empty; // NotStarted, InProgress, Finished

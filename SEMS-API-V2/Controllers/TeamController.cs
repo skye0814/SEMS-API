@@ -173,6 +173,24 @@ namespace SEMS_API_V2.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("{id}", Name = "GetTeamsByEventId")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(500)]
+        public IActionResult GetTeamsByEventId(int id)
+        {
+
+            try
+            {
+                var teams = repositoryWrapper.Team.GetTeamsByEventId(id);
+
+                return Ok(teams);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 
 }

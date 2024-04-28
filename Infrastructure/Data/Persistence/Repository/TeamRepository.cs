@@ -81,5 +81,13 @@ namespace Infrastructure.Data.Persistence.Repository
                 .Where(x => x.TeamName == name)
                 .FirstOrDefault();
         }
+
+        public IEnumerable<Team> GetTeamsByEventId(int id)
+        {
+            return Query()
+                .Include(x => x.TeamLogo)
+                .Where(x => x.EventId == id)
+                .AsEnumerable();
+        }
     }
 }
