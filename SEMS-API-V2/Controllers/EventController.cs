@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using Services.Exceptions;
 using Services.Interface;
 using System.Data;
 
@@ -17,26 +18,10 @@ namespace SEMS_API_V2.Controllers
     public class EventController : ControllerBase
     {
         private readonly IRepositoryWrapper repositoryWrapper;
-        private readonly IMatchService matchService;
 
-        public EventController(RepositoryWrapper repositoryWrapper, IMatchService matchService)
+        public EventController(RepositoryWrapper repositoryWrapper)
         {
             this.repositoryWrapper = repositoryWrapper;
-            this.matchService = matchService;
-        }
-
-        [HttpGet]
-        public IActionResult GetMatchSeedTest()
-        {
-            List<Team> teams = new List<Team>();
-            teams.Add(new Team {Id = 1, TeamName = "Team1"});
-            teams.Add(new Team { Id = 2, TeamName = "Team2" });
-            teams.Add(new Team { Id = 3, TeamName = "Team3" });
-            teams.Add(new Team { Id = 4, TeamName = "Team4" });
-
-            var matches = matchService.GenerateMatches(teams);
-
-            return Ok(matches);
         }
 
         [HttpGet("{id}", Name = "GetEvent")]

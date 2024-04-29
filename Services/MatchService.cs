@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Services.Exceptions;
 using Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,12 @@ namespace Services
 
             if (numTeams <= 1) 
             {
-                throw new ArgumentException("Number of teams must be greater than 1");
+                throw new BadRequestException("Number of teams must be greater than 1");
+            }
+
+            if (numTeams % 2 == 1)
+            {
+                throw new BadRequestException("Number of teams must be an even number");
             }
 
             Shuffle(teams);
@@ -55,20 +61,9 @@ namespace Services
                         Team2 = team2
                     });
                 }
-
-                // Update teams list for next round (winners only)
-                List<Team> winners = new List<Team>();
-                foreach (Match match in matches.Where(m => m.Round == round))
-                {
-                    if (match.Winner != null)
-                    {
-                        winners.Add(match.Winner);
-                    }
-                }
-                teams = winners;
             }
 
-            return matches;
+            return matches.Where(x => x.Round == 1).ToList();
         }
 
         private void Shuffle<T>(List<T> list)

@@ -17,6 +17,8 @@ namespace Core.Entities
         public int? TeamId2 { get; set;}
         public Team? Team1 { get; set; }
         public Team? Team2 { get; set;}
+        public int? Team1Score { get; set; }
+        public int? Team2Score { get; set; }
         public int? Round { get; set; }
         public int? WinnerId { get; set; }
         public Team? Winner { get; set; }
