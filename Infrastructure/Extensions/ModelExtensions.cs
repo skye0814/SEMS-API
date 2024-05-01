@@ -27,5 +27,19 @@ namespace Infrastructure.Extensions
             dbRecord.EventId = record.EventId;
             dbRecord.TeamLogoId = record.TeamLogoId;
         }
+
+        public static void MapMatch(this Match dbRecord, Match match)
+        {
+            dbRecord.Id = match.Id;
+            dbRecord.EventId = match.EventId;
+            dbRecord.TeamId1 = match.TeamId1;
+            dbRecord.TeamId2 = match.TeamId2;
+            dbRecord.Team1Score = match.Team1Score;
+            dbRecord.Team2Score = match.Team2Score;
+            dbRecord.Round = match.Round;
+            dbRecord.WinnerId = match.WinnerId;
+            dbRecord.MatchStartDate = match.MatchStartDate;
+            dbRecord.MatchStatus = match.MatchStatus;
+        }
     }
 }

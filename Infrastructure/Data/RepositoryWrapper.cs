@@ -16,6 +16,7 @@ namespace Infrastructure.Data
         private IEventRepository eventRepository;
         private ITeamRepository teamRepository;
         private ITeamLogoRepository logoRepository;
+        private IMatchRepository matchRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext) 
         {
@@ -84,6 +85,19 @@ namespace Infrastructure.Data
                 }
 
                 return this.logoRepository;
+            }
+        }
+
+        public IMatchRepository Match
+        {
+            get
+            {
+                if (this.matchRepository == null)
+                {
+                    matchRepository = new MatchRepository(repositoryContext);
+                }
+
+                return this.matchRepository;
             }
         }
 

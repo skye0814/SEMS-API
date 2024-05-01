@@ -26,24 +26,7 @@ namespace SEMS_API_V2.Controllers
             this.matchService = matchService;
         }
 
-        //[HttpGet]
-        //public IActionResult GetMatchRandomSeed(List<Team> teams)
-        //{
-        //    try
-        //    {
-        //        var matches = matchService.GenerateMatches(teams);
 
-        //        return Ok(matches);
-        //    }
-        //    catch (BadRequestException ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
     }
 
 }

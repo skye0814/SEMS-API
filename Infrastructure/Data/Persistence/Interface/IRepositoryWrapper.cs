@@ -13,6 +13,7 @@ namespace Infrastructure.Data.Persistence.Interface
         IEventRepository Event { get; }
         ITeamRepository Team { get; }
         ITeamLogoRepository TeamLogo { get; }
+        IMatchRepository Match { get; }
         void Save();
     }
 }
