@@ -11,6 +11,7 @@ namespace Infrastructure.Data.Persistence.Interface
     public interface IMatchRepository : IRepositoryBase<Match>
     {
         Task AddMatch(Match Match);
+        Task AddMatches(IEnumerable<Match> Matches);
         Task UpdateMatch(Match dbRecord, Match record);
         Match? GetMatchById(int id);
         IEnumerable<Match> GetMatchesByEventId(int id);

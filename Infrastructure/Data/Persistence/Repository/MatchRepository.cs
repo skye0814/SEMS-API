@@ -93,5 +93,11 @@ namespace Infrastructure.Data.Persistence.Repository
                 .Where(x => x.Event.SportId == id)
                 .AsEnumerable();
         }
+
+        public async Task AddMatches(IEnumerable<Match> matches)
+        {
+            await CreateMultipleAsync(matches);
+            await SaveAsync();
+        }
     }
 }
