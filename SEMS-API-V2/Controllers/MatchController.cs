@@ -78,6 +78,7 @@ namespace SEMS_API_V2.Controllers
 
                 await repository.Match.DeleteMatch(match);
 
+
                 return NoContent();
             }
             catch (Exception ex)
