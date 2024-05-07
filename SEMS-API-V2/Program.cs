@@ -59,6 +59,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // Uncomment this section if you want to use Swagger -- to see list of endpoints better
     app.UseSwagger();
     app.UseSwaggerUI();
 }

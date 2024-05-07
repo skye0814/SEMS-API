@@ -16,8 +16,11 @@ namespace Infrastructure.Data.Persistence.Repository
 {
     public class MatchRepository : RepositoryBase<Match>, IMatchRepository
     {
+        private readonly RepositoryContext repositoryContext;
+
         public MatchRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
+            this.repositoryContext = repositoryContext;
         }
 
         public async Task AddMatch(Match Match)
@@ -96,8 +99,19 @@ namespace Infrastructure.Data.Persistence.Repository
 
         public async Task AddMatches(IEnumerable<Match> matches)
         {
-            await CreateMultipleAsync(matches);
-            await SaveAsync();
+            try
+            {
+                // This is to temporarily disable foreign key constraint
+                // Trying to add custom FK values, dahil pwede sa ibang tables pero dito hindi gumagana
+                await repositoryContext.Database.ExecuteSqlRawAsync("PRAGMA foreign_keys=OFF;");
+                await CreateMultipleAsync(matches);
+                await SaveAsync();
+            }
+            finally
+            {
+                // Re-enable FK constraints
+                await repositoryContext.Database.ExecuteSqlRawAsync("PRAGMA foreign_keys=ON;");
+            }
         }
     }
 }

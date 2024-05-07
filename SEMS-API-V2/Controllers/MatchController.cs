@@ -117,7 +117,7 @@ namespace SEMS_API_V2.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult GetAllTeams()
+        public IActionResult GetAllMatches()
         {
 
             try
