@@ -9,7 +9,8 @@ PM> EntityFrameworkCore\Update-Database
 
 The database will be populated by the seed function inside RepositoryContext, after running _EntityFrameworkCore\Update-Database_
 
-You can test API endpoints by accessing this base URL [https://localhost:7081](https://localhost:7286/)
-dotnet run --host=0.0.0.0
-
+To run the application in Google IDX environment, run:
+```
+dotnet run --urls=http://localhost:5135
+```
 

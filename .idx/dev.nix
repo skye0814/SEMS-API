@@ -11,9 +11,9 @@
     # pkgs.python311Packages.pip
     # pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
-    # pkgs.dotnet-sdk
-    # pkgs.dotnet-runtime
-    # pkgs.dotnet-aspnetcore
+    pkgs.dotnet-sdk
+    pkgs.dotnet-runtime
+    pkgs.dotnet-aspnetcore
   ];
 
   # Sets environment variables in the workspace

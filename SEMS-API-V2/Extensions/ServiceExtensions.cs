@@ -48,7 +48,8 @@ namespace SEMS_API_V2.Extensions
                 options.AddDefaultPolicy(builder =>
                 {
                     builder.WithOrigins(
-                        "http://localhost:3000"
+                        "http://localhost:3000",
+                        "https://3000-monospace-sems-ui-1714440228259.cluster-p6qcyjpiljdwusmrjxdspyb5m2.cloudworkstations.dev"
                         )
                            .AllowAnyHeader()
                            .AllowAnyMethod()
